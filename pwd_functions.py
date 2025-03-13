@@ -1,22 +1,26 @@
-from master import master_pwd
-
-def view():
+def view(fer):
     print("Insert the username for the password you want to see:")
-    name = input("Enter the mail of the password: ")
-    with open("passwords.txt", "r") as f:
-        for line in f:
-            data = line.strip()
-            user, password = data.split(": ")
-            if user == name:
-                print(f"The password for {user} is {password}")
-                break
-        else:
-            print("Password not found.")
+    name = input("Enter the name of the account to view: ")
+    try:
+        with open("passwords.txt", "r") as f:
+            for line in f:
+                data = line.strip()
+                if not data:
+                    continue
+                user, password = data.split(": ")
+                if user == name:
+                    decrypted = fer.decrypt(password.encode()).decode()
+                    print("User: " + user + " | Password: " + decrypted)
+                    break
+            else:
+                print("Password not found.")
+    except FileNotFoundError:
+        print("Il file delle password non esiste ancora.")
 
-def add():
-    print("Adding a new password:")
-    name = input("Enter the account of the password: ")
+def add(fer):
+    name = input("Enter the name of the account: ")
     pwd = input("Enter the password: ")
+    encrypted = fer.encrypt(pwd.encode()).decode()
     with open("passwords.txt", "a") as f:
-        f.write(f"{name}: {pwd}\n")
+        f.write(name + ": " + encrypted + "\n")
     print("Password added.")
