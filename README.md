@@ -16,15 +16,12 @@ A robust and secure command-line password manager implemented in Python that pro
 
 - Python 3.7 or higher
 - Required packages:
-```bash
-pip install cryptography argon2-cffi PyYAML pytest python-dotenv
-```
 
 ## Installation
 
 1. Clone the repository:
 ```bash
-git clone [repository-url]
+git clone git@github.com:GiovanniCasula3/Password-Manager.git
 cd Password-Manager
 ```
 
