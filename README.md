@@ -1,19 +1,24 @@
-# Password Manager
+# Secure Password Manager
 
-A secure and easy-to-use password manager implemented in Python. This Password Manager uses advanced encryption to protect your passwords with a master key.
+A robust and secure command-line password manager implemented in Python that provides encrypted storage for your passwords using advanced cryptographic techniques.
 
 ## Features
 
-- Secure password encryption using Fernet (AES implementation)
-- Master password protection
-- Secure cryptographic salt generation and management
-- Intuitive command-line interface
-- Password addition and viewing functionality
+- Strong encryption using Fernet (AES-128)
+- Secure password generation with customizable options
+- Password strength evaluation
+- Command-line interface for easy management
+- Encrypted storage with master password protection
+- Password history tracking with timestamps
+- Secure salt management and key derivation
 
 ## Requirements
 
-- Python 3.x
-- `cryptography` library
+- Python 3.7 or higher
+- Required packages:
+```bash
+pip install cryptography argon2-cffi PyYAML pytest python-dotenv
+```
 
 ## Installation
 
@@ -23,46 +28,135 @@ git clone [repository-url]
 cd Password-Manager
 ```
 
-2. Install the required dependencies:
+2. Install dependencies:
 ```bash
-pip install cryptography
+pip install -r requirements.txt
 ```
 
-## Usage
-
-1. Start the program:
+3. Install the package in development mode:
 ```bash
-python manager.py
+pip install -e .
 ```
 
-2. Enter the master password when prompted
+## Usage Guide
 
-3. Choose one of the following options:
-   - `add`: Add a new password
-   - `view`: View an existing password
-   - `q`: Exit the program
+### Basic Commands
+
+1. Add a new password:
+```bash
+python -m src add --service "gmail" --username "user@gmail.com"
+```
+You will be prompted to enter the password securely.
+
+2. View a stored password:
+```bash
+python -m src get --service "gmail"
+```
+
+3. List all services:
+```bash
+python -m src list
+```
+
+4. Delete a password:
+```bash
+python -m src delete --service "gmail"
+```
+
+5. Update a password:
+```bash
+python -m src update --service "gmail"
+```
+
+6. Generate a secure password:
+```bash
+python -m src generate --length 16
+```
+
+### Command Options
+
+- `--service`: Service name (e.g., "gmail", "github")
+- `--username`: Username for the service
+- `--password`: Password (optional, will prompt if not provided)
+- `--length`: Password length for generation (default: 16)
 
 ## Project Structure
 
-- `manager.py`: Main script for the user interface
-- `master.py`: Master password and encryption management
-- `pwd_functions.py`: Password management functions
-- `passwords.txt`: Encrypted file containing passwords
-- `salt.salt`: File containing the cryptographic salt
+```
+Password-Manager/
+├── src/
+│   ├── __init__.py
+│   ├── __main__.py
+│   ├── cli/
+│   │   ├── __init__.py
+│   │   └── interface.py
+│   ├── core/
+│   │   ├── __init__.py
+│   │   └── password_manager.py
+│   └── utils/
+│       ├── __init__.py
+│       └── password_generator.py
+├── requirements.txt
+├── setup.py
+└── README.md
+```
 
-## Security
+## Security Features
 
-- Passwords are encrypted using Fernet (AES)
-- Unique cryptographic salt is utilized
-- Master password is never stored
-- Secure key derivation through PBKDF2
+### Password Protection
+- AES-128 encryption using Fernet
+- Secure key derivation (PBKDF2) with 100,000 iterations
+- Cryptographic salt for added security
+- Master password never stored
 
-## Security Notes
+### Password Storage
+- All passwords stored in encrypted format in `passwords.enc`
+- Separate salt file (`salt.salt`) for enhanced security
+- No plaintext password storage
+- Automatic salt generation on first use
+
+### Password Generation
+- Minimum length of 8 characters
+- Includes uppercase, lowercase, numbers, and special characters
+- Uses cryptographically secure random number generation
+- Password strength evaluation with 5 criteria:
+  - Length (≥12 characters)
+  - Uppercase letters
+  - Lowercase letters
+  - Numbers
+  - Special characters
+
+## Best Practices
+
+1. Master Password:
+   - Use a strong, unique master password
+   - Never share your master password
+   - Change master password periodically
+
+2. Generated Passwords:
+   - Use generated passwords when possible
+   - Minimum recommended length: 12 characters
+   - Include all character types
+
+## Security Notice
 
 - Keep your master password secure
-- The `passwords.txt` file contains only encrypted data
-- Cryptographic salt is automatically generated on first use
+- Backup your encrypted files regularly
+- Never share your salt.salt file
+- Both `passwords.enc` and `salt.salt` files are required for operation
+- These files are automatically excluded from git via .gitignore
 
 ## Contributing
 
-You are welcome to contribute to the project through pull requests or by reporting issues.
+Contributions are welcome! Please:
+
+1. Fork the repository
+2. Create a feature branch
+3. Make your changes
+4. Submit a pull request
+
+## License
+
+This project is licensed under the MIT License.
+
+        Too many current requests. Your queue position is 1. Please wait for a while or switch to other models for a smoother experience.
