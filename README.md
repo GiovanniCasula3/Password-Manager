@@ -1,4 +1,4 @@
-# Secure Password Manager
+# Password Manager
 
 A robust and secure command-line password manager implemented in Python that provides encrypted storage for your passwords using advanced cryptographic techniques.
 
