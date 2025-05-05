@@ -154,9 +154,3 @@ Contributions are welcome! Please:
 2. Create a feature branch
 3. Make your changes
 4. Submit a pull request
-
-## License
-
-This project is licensed under the MIT License.
-
-        Too many current requests. Your queue position is 1. Please wait for a while or switch to other models for a smoother experience.
